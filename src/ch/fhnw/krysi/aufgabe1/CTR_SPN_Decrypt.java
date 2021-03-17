@@ -27,6 +27,7 @@ public class CTR_SPN_Decrypt {
         System.out.println("Chiffretext wird in 16er Blöcke unterteilt ---------------------------------");
 
         System.out.println("SPN Schlüsselset wird erstellt ---------------------------------------------");
+        // SPN-Rundenschlüssel für Encrpytion
         String[] schluesselset_SPN = Schluesselberechnung(chiffreSchluessel);
         System.out.println("SPN Schlüsselset wird erstellt ---------------------------------------------");
 
@@ -99,10 +100,10 @@ public class CTR_SPN_Decrypt {
         return finalDecrypted.substring(0, index).length() / 8;
     }
 
-    private static String Decrypt(String[] entschluesselset_SPN, String yMinus1, String unterteilterChiffretext) {
+    private static String Decrypt(String[] schluesselset_SPN, String yMinus1, String unterteilterChiffretext) {
 
         // 1) k'0
-        String afterWeissschritt = multipleXOR(yMinus1, entschluesselset_SPN[0]);
+        String afterWeissschritt = multipleXOR(yMinus1, schluesselset_SPN[0]);
 
         // 2) 1_2a
         String after1stSBox = SBox(afterWeissschritt);
@@ -111,7 +112,7 @@ public class CTR_SPN_Decrypt {
         String after1stBP = BitPermutation(after1stSBox);
 
         // 2) 1_2c mit k'1
-        String after1stXOR = multipleXOR(after1stBP, entschluesselset_SPN[1]);
+        String after1stXOR = multipleXOR(after1stBP, schluesselset_SPN[1]);
 
         // 2) 2_2a
         String after2ndSBox = SBox(after1stXOR);
@@ -120,7 +121,7 @@ public class CTR_SPN_Decrypt {
         String after2ndBP = BitPermutation(after2ndSBox);
 
         // 2) 2_2c mit k'2
-        String after2ndXOR = multipleXOR(after2ndBP, entschluesselset_SPN[2]);
+        String after2ndXOR = multipleXOR(after2ndBP, schluesselset_SPN[2]);
 
         // 2) 3_2a
         String after3rdSBox = SBox(after2ndXOR);
@@ -129,13 +130,13 @@ public class CTR_SPN_Decrypt {
         String after3rdBP = BitPermutation(after3rdSBox);
 
         // 2) 3_2c mit k'3
-        String after3rdXOR = multipleXOR(after3rdBP, entschluesselset_SPN[3]);
+        String after3rdXOR = multipleXOR(after3rdBP, schluesselset_SPN[3]);
 
         // 3) 3a
         String afterlastSBox = SBox(after3rdXOR);
 
         // 3) 3c mit k'4
-        String afterlastXOR = multipleXOR(afterlastSBox, entschluesselset_SPN[4]);
+        String afterlastXOR = multipleXOR(afterlastSBox, schluesselset_SPN[4]);
 
         // After last XOR from SPN -> XOR with Y0 (unterteilterChiffretext)
         String result = multipleXOR(afterlastXOR, unterteilterChiffretext);
@@ -168,6 +169,7 @@ public class CTR_SPN_Decrypt {
         return yMinus1Set;
     }
 
+    // SPN-Rundenschlüssel für Encrpytion
     private static String[] Schluesselberechnung(String schluesseltext) {
         String[] schluesselset = new String[5];
         for (int i = 0; i < 5; i++) {
@@ -209,7 +211,7 @@ public class CTR_SPN_Decrypt {
         SBox.put("1110", "0000"); //14
         SBox.put("1111", "0111"); //15
 
-
+        // normale SBox (nicht-invers)
         int numberOfPackages = toSBox.length() / 4;
         for (int i = 0; i < numberOfPackages; i++) {
             String output = null;
