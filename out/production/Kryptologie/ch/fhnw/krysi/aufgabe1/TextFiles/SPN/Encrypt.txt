@@ -1,0 +1,52 @@
+Eingelesen: 0001001010001111
+
+Eingelesen: 00010001001010001000110000000000
+
+Schlüssel0: 0001000100101000
+Schlüssel1: 0001001010001000
+Schlüssel2: 0010100010001100
+Schlüssel3: 1000100011000000
+Schlüssel4: 1000110000000000
+Klartext: 0001001010001111
+
+Schlüsselset: 0001000100101000
+XOR WERT A: 0001001010001111
+
+XOR WERT B: 0001000100101000
+Nach Weissschritt: 0000001110100111
+Input nach dem Durchgang Nummer 0: 0000
+Input nach dem Durchgang Nummer 1: 0011
+Input nach dem Durchgang Nummer 2: 1010
+Input nach dem Durchgang Nummer 3: 0111
+Nach 1st SBOX: 1110000101101000
+Nach 1st BP: 1001101010100100
+XOR WERT A: 1001101010100100
+XOR WERT B: 0001001010001000
+Nach 1st XOR: 1000100000101100
+Input nach dem Durchgang Nummer 0: 1000
+Input nach dem Durchgang Nummer 1: 1000
+Input nach dem Durchgang Nummer 2: 0010
+Input nach dem Durchgang Nummer 3: 1100
+Nach 2nd SBOX: 0011001111010101
+Nach 2nd BP: 0010001111001111
+XOR WERT A: 0010001111001111
+XOR WERT B: 0010100010001100
+Nach 2nd XOR: 0000101101000011
+Input nach dem Durchgang Nummer 0: 0000
+Input nach dem Durchgang Nummer 1: 1011
+Input nach dem Durchgang Nummer 2: 0100
+Input nach dem Durchgang Nummer 3: 0011
+Nach 3rd SBOX: 1110110000100001
+Nach 3rd BP: 1100110010100001
+XOR WERT A: 1100110010100001
+XOR WERT B: 1000100011000000
+Nach 3rd XOR: 0100010001100001
+Input nach dem Durchgang Nummer 0: 0100
+Input nach dem Durchgang Nummer 1: 0100
+Input nach dem Durchgang Nummer 2: 0110
+Input nach dem Durchgang Nummer 3: 0001
+Nach last SBOX: 0010001010110100
+XOR WERT A: 0010001010110100
+XOR WERT B: 1000110000000000
+Nach last XOR: 1010111010110100
+y=: 1010111010110100

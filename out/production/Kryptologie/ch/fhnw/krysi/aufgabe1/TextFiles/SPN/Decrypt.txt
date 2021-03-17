@@ -1,0 +1,57 @@
+Eingelesen: 1010111010110100
+
+Eingelesen: 00010001001010001000110000000000
+
+Schlüssel0: 0001000100101000
+Schlüssel1: 0001001010001000
+Schlüssel2: 0010100010001100
+Schlüssel3: 1000100011000000
+Schlüssel4: 1000110000000000
+Entschlüssel Schlüssel0: 1000110000000000
+Entschlüssel Schlüssel1: 1110001000000000
+Entschlüssel Schlüssel2: 0111000110000000
+Entschlüssel Schlüssel3: 0011000001001000
+Entschlüssel Schlüssel4: 0001000100101000
+Chiffretext: 1010111010110100
+
+Entschlüsselset K'0: 1000110000000000
+XOR WERT A: 1010111010110100
+
+XOR WERT B: 1000110000000000
+Nach Weissschritt: 0010001010110100
+Input nach dem Durchgang Nummer 0: 0010
+Input nach dem Durchgang Nummer 1: 0010
+Input nach dem Durchgang Nummer 2: 1011
+Input nach dem Durchgang Nummer 3: 0100
+Nach 1st SBOXInvers: 0100010001100001
+Nach 1st BP: 0000111000100001
+XOR WERT A: 0000111000100001
+XOR WERT B: 0001001010001000
+Nach 1st XOR: 0001110010101001
+Input nach dem Durchgang Nummer 0: 0001
+Input nach dem Durchgang Nummer 1: 1100
+Input nach dem Durchgang Nummer 2: 1010
+Input nach dem Durchgang Nummer 3: 1001
+Nach 2nd SBOXInvers: 0011101110011101
+Nach 2nd BP: 0111000111001111
+XOR WERT A: 0111000111001111
+XOR WERT B: 0010100010001100
+Nach 2nd XOR: 0101100101000011
+Input nach dem Durchgang Nummer 0: 0101
+Input nach dem Durchgang Nummer 1: 1001
+Input nach dem Durchgang Nummer 2: 0100
+Input nach dem Durchgang Nummer 3: 0011
+Nach 3rd SBOXInvers: 1100110100011000
+Nach 3rd BP: 1101110000000110
+XOR WERT A: 1101110000000110
+XOR WERT B: 1000100011000000
+Nach 3rd XOR: 0101010011000110
+Input nach dem Durchgang Nummer 0: 0101
+Input nach dem Durchgang Nummer 1: 0100
+Input nach dem Durchgang Nummer 2: 1100
+Input nach dem Durchgang Nummer 3: 0110
+Nach last SBOXInvers: 1100000110111010
+XOR WERT A: 1100000110111010
+XOR WERT B: 1000110000000000
+Nach last XOR: 0100110110111010
+x=: 0100110110111010
