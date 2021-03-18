@@ -3,7 +3,6 @@ package ch.fhnw.krysi.aufgabe1;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,8 +99,9 @@ public class CTR_SPN_Decrypt {
         return finalDecrypted.substring(0, index).length() / 8;
     }
 
+    // CTR-Modus Decryption:
     private static String Decrypt(String[] schluesselset_SPN, String yMinus1, String unterteilterChiffretext) {
-
+        // (1.) Verschlüsselung des yMinus1-Strings durch SPN
         // 1) k'0
         String afterWeissschritt = multipleXOR(yMinus1, schluesselset_SPN[0]);
 
@@ -138,13 +138,14 @@ public class CTR_SPN_Decrypt {
         // 3) 3c mit k'4
         String afterlastXOR = multipleXOR(afterlastSBox, schluesselset_SPN[4]);
 
-        // After last XOR from SPN -> XOR with Y0 (unterteilterChiffretext)
+        // (2.) After last XOR from SPN -> XOR with Y0 (unterteilterChiffretext) to get X0
         String result = multipleXOR(afterlastXOR, unterteilterChiffretext);
 
-        return result;
+        return result; // Xi
 
     }
 
+    // Chiffretext in 16-Blöcke unterteilen
     private static String[] UnterteilterChiffreText(String chiffretext) {
         String[] unterteilterChiffretext = new String[8];
 
@@ -156,6 +157,7 @@ public class CTR_SPN_Decrypt {
         return unterteilterChiffretext;
     }
 
+    // YMinus1Set generieren (ist gleich für Ver- und Entschlüsselung)
     private static String[] YMinus1Set(String chiffretext) {
         String[] yMinus1Set = new String[7];
 
@@ -169,7 +171,8 @@ public class CTR_SPN_Decrypt {
         return yMinus1Set;
     }
 
-    // SPN-Rundenschlüssel für Encrpytion
+    // SPN:
+    // SPN-Rundenschlüssel für Decryption (same as for Encryption) (CTR-Modus: Verschlüsselung von yMinus1Set durch KS (hier SPN) auch für Entschlüsselung)
     private static String[] Schluesselberechnung(String schluesseltext) {
         String[] schluesselset = new String[5];
         for (int i = 0; i < 5; i++) {
@@ -190,6 +193,8 @@ public class CTR_SPN_Decrypt {
 
     }
 
+    // SPN:
+    // S-Box für Decryption (same as for Encryption) (CTR-Modus: Verschlüsselung von yMinus1Set durch KS (hier SPN) auch für Entschlüsselung)
     public static String SBox(String toSBox) {
         String afterSbox = null;
 
@@ -234,6 +239,7 @@ public class CTR_SPN_Decrypt {
         return afterSbox;
     }
 
+    // SPN:
     public static String BitPermutation(String toBP) {
 
         HashMap<Integer, Integer> BP = new HashMap<Integer, Integer>();
@@ -274,6 +280,7 @@ public class CTR_SPN_Decrypt {
         return afterBP;
     }
 
+    // XOR for SPN and CTR-Modus
     public static String multipleXOR(String a, String b) {
         String returnString = null;
 
@@ -339,6 +346,7 @@ public class CTR_SPN_Decrypt {
         return binaryString;
     }
 
+    // gets YMinus1 out of Chiffretext
     public static String getYMinus1(String chiffretext) {
         String yMinus1 = chiffretext.substring(0, 16);
         return yMinus1;

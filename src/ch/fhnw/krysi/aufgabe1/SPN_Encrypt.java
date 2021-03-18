@@ -72,6 +72,7 @@ public class SPN_Encrypt {
         System.out.println("y=: " + afterlastXOR);
     }
 
+    // Rundenschlüssel:
     private static String[] Schluesselberechnung(String schluesseltext) {
         String[] schluesselset = new String[5];
         for (int i = 0; i < 5; i++) {

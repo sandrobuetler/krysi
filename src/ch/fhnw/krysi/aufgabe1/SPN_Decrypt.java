@@ -13,9 +13,9 @@ public class SPN_Decrypt {
         String chiffretext = ReadTXTFile("src/ch/fhnw/krysi/aufgabe1/TextFiles/SPN/chiffretext.txt");
         String schluesseltext = ReadTXTFile("src/ch/fhnw/krysi/aufgabe1/TextFiles/SPN/schluessel.txt");
 
-        String[] schluesselset = Schluesselberechnung(schluesseltext);
+        String[] schluesselset = Schluesselberechnung(schluesseltext); // for encryption
 
-        String[] entschluesselset = Entschluesselberechnung(schluesselset);
+        String[] entschluesselset = Entschluesselberechnung(schluesselset); // for decryption
 
         System.out.println("Chiffretext: " + chiffretext);
         System.out.println("Entschlüsselset K'0: " + entschluesselset[0]);
@@ -72,6 +72,7 @@ public class SPN_Decrypt {
         System.out.println("x=: " + afterlastXOR);
     }
 
+    // Wandelt Rundenschlüsselset für Verschlüsselung in Rundenschlüsselset für Entschlüsselung um
     private static String[] Entschluesselberechnung(String[] schluesselset) {
         String[] entschluesselset = new String[5];
 
@@ -88,6 +89,7 @@ public class SPN_Decrypt {
         return entschluesselset;
     }
 
+    // Rundenschlüssel für Encryption:
     private static String[] Schluesselberechnung(String schluesseltext) {
         String[] schluesselset = new String[5];
         for (int i = 0; i < 5; i++) {
