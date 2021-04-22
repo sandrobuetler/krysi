@@ -3,6 +3,7 @@ package ch.fhnw.krysi.aufgabe2;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,41 +59,70 @@ public class rainbowtable {
         String foundEndpoint = comparatorGgbHashwertToEndPoint(getMD5("0000000"),zeichenSet,7, endPoints);
         System.out.println("Gegebener Hash als Endpoint: " + foundEndpoint);
 
+        */
+        /*
+        String foundEndpoint = new String();
+        String hashwert = "29c3eea3f305d6b823f562ac4be35217";
+
+        hashwert = reduction(getDez(hashwert),2,zeichenSet, 7);
+        System.out.println("Reduzierter Hashwert ab Stufe 2: "+ hashwert);
+
+        String hashwert1 = "29c3eea3f305d6b823f562ac4be35217";
+        hashwert1 = reduction(getDez(hashwert1),1,zeichenSet, 7);
+        hashwert1 = reduction(getDez(getMD5(hashwert1)),2,zeichenSet, 7);
+        System.out.println("Reduzierter Hashwert ab Stufe 1: "+ hashwert1);
+
+        String hashwert2 = "29c3eea3f305d6b823f562ac4be35217";
+        hashwert2 = reduction(getDez(hashwert2),0,zeichenSet, 7);
+        hashwert2 = reduction(getDez(getMD5(hashwert2)),1,zeichenSet, 7);
+        hashwert2 = reduction(getDez(getMD5(hashwert2)),2,zeichenSet, 7);
+        System.out.println("Reduzierter Hashwert ab Stufe 0: "+ hashwert2);
+         */
+
+        System.out.println("getDecryptedHash() ab Stufe 1999: "+ getDecryptedHash("d0f342ff295aafcd68f73b471b385878",1999,zeichenSet,7));
+        System.out.println("getDecryptedHash() ab Stufe 1998: "+ getDecryptedHash("d0f342ff295aafcd68f73b471b385878",1998,zeichenSet,7));
+        System.out.println("getDecryptedHash() ab Stufe 1997: "+ getDecryptedHash("d0f342ff295aafcd68f73b471b385878",1997,zeichenSet,7));
+        System.out.println("getDecryptedHash() ab Stufe 1996: "+ getDecryptedHash("d0f342ff295aafcd68f73b471b385878",1996,zeichenSet,7));
+        System.out.println("getDecryptedHash() ab Stufe 1995: "+ getDecryptedHash("d0f342ff295aafcd68f73b471b385878",1995,zeichenSet,7));
+
+        System.out.println("findEndPoint() mit Hash von Vogt: "+ findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12",zeichenSet,7,endPoints));
+        System.out.println("Klartext des Hashes von Vogt: "+passwordList.get(endPoints.indexOf(findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12",zeichenSet,7,endPoints))));
+
+
+
+
     }
 
-    public static String comparatorGgbHashwertToEndPoint(String bekannterHash, List<String> zeichenSet, int laengePW, List<String> endPoints){
-        String solution = new String();
+    public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPonts){
 
-        for (int i = 2000; i>0; i--){
-            solution = rainbowMagicEndPoint(bekannterHash, zeichenSet, laengePW, i, endPoints);
-            if (!solution.equals("NADA")){
-                return solution;
+        for (int i = 1999; i >=0; i--){
+            String tempDecryptedHash = getDecryptedHash(hash, i, zeichenSet, laengePW);
+            if (isDecryptedHashInEndPoints(tempDecryptedHash, endPonts)){
+                return tempDecryptedHash;
             }
         }
-
-        return solution;
+        return "Endpoint nicht gefunden!";
     }
 
+    public static Boolean isDecryptedHashInEndPoints(String decryptedHash, List<String> endPoints){
 
-    // Kette: hashen - hashToDez - reduzieren
-    public static List<String> rainbowMagicRetour(String bekannterHash, List<String> zeichenSet, int laengePW, int stufe) {
-        String endPoint = bekannterHash;
-        String returnString = "NADA";
+        return endPoints.contains(decryptedHash);
 
-        String endpointErsteRunde = reduction(getDez(endPoint), stufe - 1, zeichenSet, laengePW);
-        if (endPointInEndPoints(endpointErsteRunde, endPoints)) {
-            returnString = endpointErsteRunde;
-            return returnString;
-        }
+    }
 
-        for (int j = stufe; j < 2000; j++) {
-            endPoint = reduction(getDez(getMD5(endpointErsteRunde)), j, zeichenSet, laengePW);
+    public static String getDecryptedHash(String hash, int abStufe, List<String> zeichenSet, int langePW){
+        String decryptedHash = "DNW";
+        int max = 2000;
+
+        for (int i = abStufe; i < max; i++) {
+            if (i == abStufe) {
+                decryptedHash = reduction(getDez(hash), abStufe, zeichenSet, langePW);
+            } else {
+                decryptedHash = reduction(getDez(getMD5(decryptedHash)), i, zeichenSet, langePW);
+            }
         }
-        if (endPointInEndPoints(endPoint, endPoints)) {
-            returnString = endPoint;
-            return returnString;
-        }
-        return returnString;
+        return decryptedHash;
+
     }
 
 
@@ -107,6 +137,13 @@ public class rainbowtable {
                 if (i==0 && j == 2){
                     System.out.println("Nach der 2ten Stufe: "+ actualPW);
                     System.out.println(getMD5(actualPW));
+                }
+                if(i==0 && j==1998){
+                    System.out.println("Reduced 1998 "+actualPW);
+                    System.out.println("Hashvalue 1999 "+getMD5(actualPW));
+                }
+                if(i==0 && j==1999){
+                    System.out.println("Reduced 1999 "+actualPW);
                 }
             }
             endPoint.add(actualPW);
