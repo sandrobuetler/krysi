@@ -54,7 +54,7 @@ public class CTR_SPN_Decrypt {
         System.out.println("Resultat für Decrypted X6: " + decryptX6);
         System.out.println("Entschlüsselung beendet ----------------------------------------------------");
 
-        String finalDecrypted = decryptX0 + decryptX1 + decryptX3 + decryptX4 + decryptX5 + decryptX6;
+        String finalDecrypted = decryptX0 + decryptX1 + decryptX2 + decryptX3 + decryptX4 + decryptX5 + decryptX6;
 
         System.out.println("Zusammengehängter Klartext X0 bis X6: " + finalDecrypted);
 
