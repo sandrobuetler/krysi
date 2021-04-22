@@ -88,9 +88,6 @@ public class rainbowtable {
         System.out.println("findEndPoint() mit Hash von Vogt: "+ findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12",zeichenSet,7,endPoints));
         System.out.println("Klartext des Hashes von Vogt: "+passwordList.get(endPoints.indexOf(findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12",zeichenSet,7,endPoints))));
 
-
-
-
     }
 
     public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPonts){
@@ -122,7 +119,6 @@ public class rainbowtable {
             }
         }
         return decryptedHash;
-
     }
 
 
