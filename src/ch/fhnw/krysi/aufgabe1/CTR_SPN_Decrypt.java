@@ -281,6 +281,7 @@ public class CTR_SPN_Decrypt {
     }
 
     // XOR for SPN and CTR-Modus
+    // !!! XOR-Operator in Java: ^ !!!
     public static String multipleXOR(String a, String b) {
         String returnString = null;
 
