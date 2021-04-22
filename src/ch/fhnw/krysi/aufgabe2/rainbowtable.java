@@ -53,28 +53,48 @@ public class rainbowtable {
         System.out.println("Gegebener Hash reduziert: " + gegebenerHashToDezReduziert);
 
         System.out.println("Etwas wurde gefunden: " + endPoints.indexOf(gegebenerHashToDezReduziert));
-        System.out.println(endPoints.get(endPoints.indexOf(gegebenerHashToDezReduziert)));
+        //System.out.println(endPoints.get(endPoints.indexOf(gegebenerHashToDezReduziert)));
 
+        String foundEndpoint = comparatorGgbHashwertToEndPoint(getMD5("0000000"),zeichenSet,7, endPoints);
+        System.out.println("Gegebener Hash als Endpoint: " + foundEndpoint);
 
+    }
 
+    public static String comparatorGgbHashwertToEndPoint(String bekannterHash, List<String> zeichenSet, int laengePW, List<String> endPoints){
+        String solution = new String();
+
+        for (int i = 2000; i>0; i--){
+            solution = rainbowMagicEndPoint(bekannterHash, zeichenSet, laengePW, i, endPoints);
+            if (!solution.equals("NADA")){
+                return solution;
+            }
+        }
+
+        return solution;
     }
 
 
     // Kette: hashen - hashToDez - reduzieren
     public static List<String> rainbowMagicRetour(String bekannterHash, List<String> zeichenSet, int laengePW, int stufe) {
         String endPoint = bekannterHash;
+        String returnString = "NADA";
 
-            for (int j = 0; j < stufe; j++) {
-                endPoint = reduction(getDez(endPoint), j, zeichenSet, laengePW);
-                if (i==0 && j == 2){
-                    System.out.println("Nach der 2ten Stufe: "+ actualPW);
-                    System.out.println(getMD5(actualPW));
-                }
-            }
-            endPoint.add(actualPW);
+        String endpointErsteRunde = reduction(getDez(endPoint), stufe - 1, zeichenSet, laengePW);
+        if (endPointInEndPoints(endpointErsteRunde, endPoints)) {
+            returnString = endpointErsteRunde;
+            return returnString;
         }
-        return endPoint;
+
+        for (int j = stufe; j < 2000; j++) {
+            endPoint = reduction(getDez(getMD5(endpointErsteRunde)), j, zeichenSet, laengePW);
+        }
+        if (endPointInEndPoints(endPoint, endPoints)) {
+            returnString = endPoint;
+            return returnString;
+        }
+        return returnString;
     }
+
 
     // Kette: hashen - hashToDez - reduzieren
    public static List<String> rainbowMagic(List<String> passwordList, List<String> zeichenSet, int laengePW, int stufe) {
