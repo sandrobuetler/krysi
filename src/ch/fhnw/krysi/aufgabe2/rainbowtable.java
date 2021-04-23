@@ -104,7 +104,7 @@ public class rainbowtable {
         // Kontrolle ob, Hash von PW 0000000 von Stufe 1998 ab Stufe 1998 Endpoint ergibt
         String hashPW0Stufe1998 = "f7c9aba38c9a6d58ca7fbe37c33efbbc";
         String endpoint0 = endPoints.get(0);
-        System.out.println("----Kontrolle Hash Stufe 1998 ergibt ab Stufe 1998 den Endpoint von 0000000:----");
+        System.out.println("----Kontrolle ob der Hash der Stufe 1998 genau ab Stufe 1998 den Endpoint von 0000000 ergibt:----");
         System.out.println("getReducedHash() ab Stufe 1999: " + getReducedHash(hashPW0Stufe1998, 1999, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1998: " + getReducedHash(hashPW0Stufe1998, 1998, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1997: " + getReducedHash(hashPW0Stufe1998, 1997, zeichenSet, 7));
