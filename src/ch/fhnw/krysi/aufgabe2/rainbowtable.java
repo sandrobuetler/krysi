@@ -14,7 +14,7 @@ public class rainbowtable {
 
         // Erstellen des Zeichensets
         List<String> zeichenSet = generateCompleteCharSet();
-        System.out.println("Kontrolle Zeichenset:");
+        System.out.println("----Kontrolle Zeichenset:----");
         System.out.println("0. Pos Zeichenset: " + zeichenSet.get(0)); // erwartet: 0
         System.out.println("9. Pos Zeichenset: " + zeichenSet.get(9)); // erwartet: 9
         System.out.println("10. Pos Zeichenset: " + zeichenSet.get(10)); // erwartet: a
@@ -25,7 +25,7 @@ public class rainbowtable {
         List<String> allPasswordList = generatePassword(zeichenSet);
         // Erstellen der Subliste (nur 2000 Passwörter)
         List<String> passwordList = allPasswordList.subList(0, 2000);
-        System.out.println("Kontrolle Passwort-Liste:");
+        System.out.println("----Kontrolle Passwort-Liste:----");
         System.out.println("0. Pos passwordList: " + passwordList.get(0)); // erwartet: 00000000
         System.out.println("35. Pos passwordList: " + passwordList.get(35)); // erwartet: 000000z
         System.out.println("36. Pos passwordList: " + passwordList.get(36)); // erwartet: 0000010
@@ -34,7 +34,7 @@ public class rainbowtable {
         System.out.println("Länge Passwort-Liste: " + passwordList.size()); // erwartet: 2000
         System.out.println();
 
-        System.out.println("Kontrolle MD5-hashen - DezZahl - reduzieren:");
+        System.out.println("----Kontrolle MD5-hashen - DezZahl - reduzieren:----");
         // Kontrolle Stufe 0 0000000 MD5-hashed
         String md5Test = getMD5(passwordList.get(0));
         System.out.println("Stufe 0: 0000000 MD5-gehasht: " + md5Test);
@@ -79,7 +79,7 @@ public class rainbowtable {
         System.out.println("endPoint Position 1999: " + endPoints.get(1999));
         System.out.println();
 
-        System.out.println("Kontrolle Hash Stufe 1 ergibt ab Stufe 1 den Enpunkt von 0000000 auf Stufe 2:");
+        System.out.println("----Kontrolle Hash Stufe 1 ergibt ab Stufe 1 den Enpunkt von 0000000 auf Stufe 2:----");
         // Kontrolle Eingabe Hashwert (Stufe 1) - reduzieren - hashen bis "Endpoint" (Stufe 2 reduziert)
         // von Stufe 2 aus
         String hashwert = "12e2feb5a0feccf82a8d4172a3bd51c3";
@@ -104,7 +104,7 @@ public class rainbowtable {
         // Kontrolle ob, Hash von PW 0000000 von Stufe 1998 ab Stufe 1998 Endpoint ergibt
         String hashPW0Stufe1998 = "f7c9aba38c9a6d58ca7fbe37c33efbbc";
         String endpoint0 = endPoints.get(0);
-        System.out.println("Kontrolle Hash Stufe 1998 ergibt ab Stufe 1998 den Endpoint von 0000000:");
+        System.out.println("----Kontrolle Hash Stufe 1998 ergibt ab Stufe 1998 den Endpoint von 0000000:----");
         System.out.println("getReducedHash() ab Stufe 1999: " + getReducedHash(hashPW0Stufe1998, 1999, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1998: " + getReducedHash(hashPW0Stufe1998, 1998, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1997: " + getReducedHash(hashPW0Stufe1998, 1997, zeichenSet, 7));
@@ -171,7 +171,7 @@ public class rainbowtable {
                 actualPW = reduction(getDez(getMD5(actualPW)), j, zeichenSet, laengePW);
                 if (i == 0 && j == 1997) {
                     System.out.println(
-                            "Ausgabe von reduzierter Wert und Hashwert von PW 0000000 ab Stufe 1997 bis Endpoint");
+                            "----Ausgabe von reduzierter Wert und Hashwert von PW 0000000 ab Stufe 1997 bis Endpoint:----");
                     System.out.println("Reduced nach Stufe 1997: " + actualPW);
                     System.out.println("Hashvalue nach Stufe 1998: " + getMD5(actualPW));
                 }
