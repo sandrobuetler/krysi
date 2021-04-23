@@ -115,6 +115,8 @@ public class rainbowtable {
         System.out.println(
                 "findEndPoint() mit Hash von 0000000 Stufe 1998: " + findEndPoint(hashPW0Stufe1998, zeichenSet, 7,
                         endPoints));
+        System.out.println("Klartext des Hashes von 0000000 Stufe 1998: " + passwordList
+                .get(endPoints.indexOf(findEndPoint(hashPW0Stufe1998, zeichenSet, 7, endPoints))));
         System.out.println();
 
         // RESULTAT:
