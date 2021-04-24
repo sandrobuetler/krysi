@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 public class rainbowtable {
 
@@ -79,7 +80,8 @@ public class rainbowtable {
         System.out.println("endPoint Position 1999: " + endPoints.get(1999));
         System.out.println();
 
-        System.out.println("----Kontrolle ob der Hash der Stufe 1 genau ab Stufe 1 den Endpoint von 0000000 auf Stufe 2 ergibt:----");
+        System.out.println(
+                "----Kontrolle ob der Hash der Stufe 1 genau ab Stufe 1 den Endpoint von 0000000 auf Stufe 2 ergibt:----");
         // Kontrolle Eingabe Hashwert (Stufe 1) - reduzieren - hashen bis "Endpoint" (Stufe 2 reduziert)
         // von Stufe 2 aus
         String hashwert = "12e2feb5a0feccf82a8d4172a3bd51c3";
@@ -104,7 +106,8 @@ public class rainbowtable {
         // Kontrolle ob, Hash von PW 0000000 von Stufe 1998 ab Stufe 1998 Endpoint ergibt
         String hashPW0Stufe1998 = "f7c9aba38c9a6d58ca7fbe37c33efbbc";
         String endpoint0 = endPoints.get(0);
-        System.out.println("----Kontrolle ob der Hash der Stufe 1998 genau ab Stufe 1998 den Endpoint von 0000000 ergibt:----");
+        System.out.println(
+                "----Kontrolle ob der Hash der Stufe 1998 genau ab Stufe 1998 den Endpoint von 0000000 ergibt:----");
         System.out.println("getReducedHash() ab Stufe 1999: " + getReducedHash(hashPW0Stufe1998, 1999, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1998: " + getReducedHash(hashPW0Stufe1998, 1998, zeichenSet, 7));
         System.out.println("getReducedHash() ab Stufe 1997: " + getReducedHash(hashPW0Stufe1998, 1997, zeichenSet, 7));
@@ -126,14 +129,41 @@ public class rainbowtable {
         System.out.println("Klartext des Hashes von Aufgabe: " + passwordList
                 .get(endPoints.indexOf(findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12", zeichenSet, 7, endPoints))));
 
+        System.out.println("Index of 00000rs: " + passwordList.indexOf("00000rs"));
+        System.out.println("Index of igmt8ml: " + endPoints.indexOf("igmt8ml"));
+
+        // Endpoint von 00000rs
+        List<String> listOfHashedAndRed    = calculateChainFromStartValue("00000rs", zeichenSet, 7);
+        String endpointAufgabe = listOfHashedAndRed.get(listOfHashedAndRed.size()-1);
+        System.out.println("Endpoint von 00000rs: " + endpointAufgabe);
+
+        // ToDo
+        // Ergibt 00000rs Endpunkt igmt8ml?
+        // Finde reducedValue right in front of gegebener Hashwert in listOfHashedAndRed
+
+    }
+
+    // ????? Why nothing added?
+    public static List<String> calculateChainFromStartValue(String startValue, List<String> zeichenSet, int laengePW) {
+        List<String> listOfHashesAndRed = null;
+
+        for (int j = 0; j < 2000; j++) {
+            String hash;
+            String reduced;
+            hash = getMD5(startValue);
+            listOfHashesAndRed.add(hash);
+            reduced = reduction(getDez(hash), j, zeichenSet, laengePW);
+            listOfHashesAndRed.add(reduced);
+        }
+        return listOfHashesAndRed;
     }
 
     // Input: Hash, Aktion: (hashen)-toDez-reduzieren von Stufe 1999-- bis Endpoint gefunden
-    public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPonts) {
+    public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPoints) {
 
         for (int i = 1999; i >= 0; i--) {
             String tempDecryptedHash = getReducedHash(hash, i, zeichenSet, laengePW);
-            if (isReducedHashInEndPoints(tempDecryptedHash, endPonts)) {
+            if (isReducedHashInEndPoints(tempDecryptedHash, endPoints)) {
                 return tempDecryptedHash;
             }
         }
