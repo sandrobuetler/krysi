@@ -74,12 +74,12 @@ public class rainbowtable {
 
         // Ausführen der ganzen Kette und Ausgeben der ersten und letzten Position der EndPoints-Liste
         List<String> endPoints = rainbowMagic(passwordList, zeichenSet, 7, 2000);
-        System.out.println("Ausgabe 0. und 1999. Position EndPoints-Liste:");
+        System.out.println("----Ausgabe 0. und 1999. Position EndPoints-Liste:----");
         System.out.println("endPoint Position 0: " + endPoints.get(0));
         System.out.println("endPoint Position 1999: " + endPoints.get(1999));
         System.out.println();
 
-        System.out.println("----Kontrolle Hash Stufe 1 ergibt ab Stufe 1 den Enpunkt von 0000000 auf Stufe 2:----");
+        System.out.println("----Kontrolle ob der Hash der Stufe 1 genau ab Stufe 1 den Endpoint von 0000000 auf Stufe 2 ergibt:----");
         // Kontrolle Eingabe Hashwert (Stufe 1) - reduzieren - hashen bis "Endpoint" (Stufe 2 reduziert)
         // von Stufe 2 aus
         String hashwert = "12e2feb5a0feccf82a8d4172a3bd51c3";
@@ -183,6 +183,7 @@ public class rainbowtable {
                 }
                 if (i == 0 && j == 1999) {
                     System.out.println("Reduced nach Stufe 1999: " + actualPW);
+                    System.out.println();
                 }
             }
             endPoint.add(actualPW);
