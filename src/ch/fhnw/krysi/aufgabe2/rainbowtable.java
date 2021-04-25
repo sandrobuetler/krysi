@@ -157,6 +157,7 @@ public class rainbowtable {
         // Calculate Kette von 00000rs
         // Find gegebener Hashwert in Kette von 00000rs
         // 1 Position vor gegebener Hashwert ist PW
+        // finales PW gehashed = gegebener Hashwert
 
 
         // Ergibt 00000rs Endpunkt igmt8ml? - Nein!
