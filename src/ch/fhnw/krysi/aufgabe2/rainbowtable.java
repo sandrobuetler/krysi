@@ -188,11 +188,17 @@ public class rainbowtable {
 //        System.out.println("Endpoint of listOfHashedAndRed_0000000: "+ endpointOf0000000); // myr8a47 !! sollte 545nx4t ergeben --> calculateChainFromStartValue() ist falsch
 //        System.out.println("Ist myr8a47 in Endpoints-Liste enthalten?: "+endPoints.contains("myr8a47"));
 
+        List<String> listOfCalculatedResults = calculatePasswordfromStartValue("00000rs", zeichenSet, 7);
+        System.out.println("Gegebener Hashwert ist in Kette von Startwert: "+listOfCalculatedResults.contains(gegebenerHashwert));
+        String password = listOfCalculatedResults.get(listOfCalculatedResults.indexOf(gegebenerHashwert)-1);
+        System.out.println("Passwort von gegebenem Hashwert: "+password);
+        System.out.println("Gehashtes Passwort: "+getMD5(password));
+        System.out.println("Gegebener Hashwert: "+gegebenerHashwert);
 
 
     }
     //Kette von Startwert
-    public static List<String> calculateResultfromStartValue(String firstPasswort,List<String> zeichenSet, int laengePW){
+    public static List<String> calculatePasswordfromStartValue(String firstPasswort,List<String> zeichenSet, int laengePW){
         List <String> listOfCalculatedResults = new ArrayList<>();
         String tempPassword = firstPasswort;
         for(int i = 0; i<2000; i++){
