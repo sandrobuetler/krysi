@@ -136,24 +136,13 @@ public class rainbowtable {
                 .contains("igmt8ml"));
         // Kette von Startwert aus berechnen
         List<String> listOfCalculatedResults = calculatePasswordfromStartValue("00000rs", zeichenSet, 7);
-        System.out.println("Gegebener Hashwert ist in Kette von Startwert: " + listOfCalculatedResults
+        System.out.println("Gegebener Hashwert ist in Kette von 00000rs: " + listOfCalculatedResults
                 .contains(gegebenerHashwert));
         // Passwort ist eine Position vor Hashwert
         String foundPassword = listOfCalculatedResults.get(listOfCalculatedResults.indexOf(gegebenerHashwert) - 1);
         System.out.println("Passwort von gegebenem Hashwert = LOESUNG: " + foundPassword);
         System.out.println("Gehashtes Passwort: " + getMD5(foundPassword));
         System.out.println("Gegebener Hashwert: " + gegebenerHashwert);
-        System.out.println();
-
-        System.out.println("--Method calculateChainFromStartValue korrigiert--");
-                List<String> listOfCalculatedResults2 = calculateChainFromStartValue("00000rs", zeichenSet, 7);
-                System.out.println("Gegebener Hashwert ist in Kette von Startwert: "+listOfCalculatedResults2.contains(gegebenerHashwert));
-                String password2 = listOfCalculatedResults2.get(listOfCalculatedResults2.indexOf(gegebenerHashwert)-1);
-                System.out.println("Passwort von gegebenem Hashwert: "+password2);
-                System.out.println("Gehashtes Passwort: "+getMD5(password2));
-                System.out.println("Gegebener Hashwert: "+gegebenerHashwert);
-
-
 
     }
 
@@ -172,26 +161,6 @@ public class rainbowtable {
 
         return listOfCalculatedResults;
     }
-
-    // Kette von gefundenem StartValue aus berechnen
-
-    public static List<String> calculateChainFromStartValue(String startValue, List<String> zeichenSet, int laengePW) {
-        List<String> listOfHashesAndRed = new ArrayList<>();
-        String hash = startValue;
-
-        for (int j = 0; j < 2000; j++) {
-            String reduced;
-            hash = getMD5(hash);
-            listOfHashesAndRed.add(hash);
-            reduced = reduction(getDez(hash), j, zeichenSet, laengePW);
-            hash=reduced;
-            listOfHashesAndRed.add(reduced);
-        }
-        System.out.println("Länge der Liste: " + listOfHashesAndRed.size());
-        System.out.println("Letzer Wert in Liste: " + listOfHashesAndRed.get(listOfHashesAndRed.size()-1));
-        return listOfHashesAndRed;
-    }
-
 
     // Input: Hash, Aktion: (hashen)-toDez-reduzieren von Stufe 1999-- bis Endpoint gefunden
     public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPoints) {
