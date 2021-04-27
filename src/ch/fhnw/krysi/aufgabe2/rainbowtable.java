@@ -122,100 +122,59 @@ public class rainbowtable {
         System.out.println();
 
         // RESULTAT:
+        System.out.println("----Resultat----");
         System.out.println(
-                "findEndPoint() mit Hash von Aufgabe: " + findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12", zeichenSet,
+                "Endpoint gegebener Hashwert: " + findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12", zeichenSet,
                         7, endPoints));
-        System.out.println("Klartext des Hashes von Aufgabe: " + passwordList
+        System.out.println("Startpunkt gegebener Hashwert: " + passwordList
                 .get(endPoints.indexOf(findEndPoint("1d56a37fb6b08aa709fe90e12ca59e12", zeichenSet, 7, endPoints))));
-
         System.out.println("Index of 00000rs: " + passwordList.indexOf("00000rs"));
         System.out.println("Index of igmt8ml: " + endPoints.indexOf("igmt8ml"));
-
-
-
-        // Endpoint von 00000rs
-        List<String> listOfHashedAndRed_00000rs    = calculateChainFromStartValue("00000rs", zeichenSet, 7);
-        System.out.println("Size of listOfHashedAndRed: "+listOfHashedAndRed_00000rs.size());
-        String endpointAufgabe = listOfHashedAndRed_00000rs.get(listOfHashedAndRed_00000rs.size()-1);
-        System.out.println("Endpoint von 00000rs: " + endpointAufgabe);
-        // !! gegebener Hashwert -> Endpoint: igmt8ml
-        // !! Endpoint: igmt8ml -> Startpoint: 00000rs
-        // !! Endpoint von 00000rs: mi89dgv != igmt8ml
-        System.out.println("Enthält listOfHashedAndRed den ggb Hashwert?: "+listOfHashedAndRed_00000rs.contains(gegebenerHashwert)); // !! ggb Hashwert nicht in ListOfHashedAndRed
-        System.out.println("Enhält Endpoints-Liste mi89dgv?: "+endPoints.contains("mi89dgv")); // !! mi89dgv nicht in Endpoints-Liste
-        // int indexOf2ndEndpoint = endPoints.indexOf("mi89dgv");
-        // System.out.println("Index of Endpoint mi89dgv: " + indexOf2ndEndpoint); !! nicht in Endpoint-Liste
-        // String startPointOf2ndEndpoint = passwordList.get(indexOf2ndEndpoint);
-        // System.out.println("Startpoint of mi89dgv: "+startPointOf2ndEndpoint);
-        // System.out.println("Index of Startpoint of mi89dgv: " + passwordList.indexOf(startPointOf2ndEndpoint));
-        System.out.println("Ist igmt8ml in Endpoints-Liste enthalten?: "+endPoints.contains("igmt8ml"));
+        List<String> sublistEndpoint = endPoints.subList(1001, endPoints.size());
+        // igmt8ml kommt nicht 2x in Endpoints-Liste vor
+        System.out.println("igmt8ml in Sublist Endpoints nach Position 1000: " + sublistEndpoint
+                .contains("igmt8ml"));
+        // Kette von Startwert aus berechnen
+        List<String> listOfCalculatedResults = calculatePasswordfromStartValue("00000rs", zeichenSet, 7);
+        System.out.println("Gegebener Hashwert ist in Kette von Startwert: " + listOfCalculatedResults
+                .contains(gegebenerHashwert));
+        // Passwort ist eine Position vor Hashwert
+        String foundPassword = listOfCalculatedResults.get(listOfCalculatedResults.indexOf(gegebenerHashwert) - 1);
+        System.out.println("Passwort von gegebenem Hashwert = LOESUNG: " + foundPassword);
+        System.out.println("Gehashtes Passwort: " + getMD5(foundPassword));
+        System.out.println("Gegebener Hashwert: " + gegebenerHashwert);
         System.out.println();
 
-        // ToDo
-        // fix calculateChainFromStartValue: ergibt von 000000 nicht 545nx4t.
-        // Calculate Kette von 00000rs
-        // Find gegebener Hashwert in Kette von 00000rs
-        // 1 Position vor gegebener Hashwert ist PW
-        // finales PW gehashed = gegebener Hashwert
+        System.out.println("--Method calculateChainFromStartValue korrigiert--");
+                List<String> listOfCalculatedResults2 = calculateChainFromStartValue("00000rs", zeichenSet, 7);
+                System.out.println("Gegebener Hashwert ist in Kette von Startwert: "+listOfCalculatedResults2.contains(gegebenerHashwert));
+                String password2 = listOfCalculatedResults2.get(listOfCalculatedResults2.indexOf(gegebenerHashwert)-1);
+                System.out.println("Passwort von gegebenem Hashwert: "+password2);
+                System.out.println("Gehashtes Passwort: "+getMD5(password2));
+                System.out.println("Gegebener Hashwert: "+gegebenerHashwert);
 
-
-        // Ergibt 00000rs Endpunkt igmt8ml? - Nein!
-        // int indexOfGgbHashwert = listOfHashedAndRed.indexOf(gegebenerHashwert); // !! gegebener Hashwert nicht gefunden
-        // System.out.println("Index of gegebener Hashwert: "+indexOfGgbHashwert);
-        // System.out.println("Reduced before gegebener Hashwert: "+listOfHashedAndRed.get(indexOfGgbHashwert-1));
-
-        // ToDo =wie oben
-        // Finde reducedValue right in front of gegebener Hashwert in listOfHashedAndRed: gegebener Hash wird - !! Hashwert nicht in listOfHashedAndRed
-        // auf Stufe 1601 gefunden -> Hash wurde auf Stufe 1601 erstellt von reduced von Stufe 1600 aus:
-        // listOfHashedAndRed: Hash-reduced-Hash-reduced...: 4000 Einträge (CHECK!): 0-3999, reduced Stufe 1600 auf Position 3200-1 (CHECK by hashing = gegebener Hashwert!).
-
-        // Stand der Dinge
-        /*
-        Gegebener Hashwert ergibt igmt8ml als Endpoint.
-        igmt8ml ist in Endpoints-Liste vorhanden
-        igmt8ml als Endpoint ergibt 00000rs als Startpoint.
-        ! Kette von 00000rs aus berechnet ergibt Endpoint mi89dgv. Länge der Kette: 4000.
-        ! Endpoint mi89dgv ist nicht in Endpoint-Liste. ??? Warum nicht?
-        ! Gegebener Hashwert ist nicht in Kette von 00000rs.
-         */
-
-//        List<String> sublistEndpoint = endPoints.subList(1001,endPoints.size());
-//        System.out.println("Index of igmt8ml in Sublist nach Position 1000: "+ sublistEndpoint.indexOf("igmt8ml")); // igmt8ml kommt nicht 2x in Endpoints-Liste vor
-//
-//        List<String> listOfHashedAndRed_0000000 = calculateChainFromStartValue(passwordList.get(0), zeichenSet, 7);
-//        String endpointOf0000000 = listOfHashedAndRed_0000000.get(
-//                listOfHashedAndRed_00000rs.size()-1);
-//        System.out.println("Endpoint of listOfHashedAndRed_0000000: "+ endpointOf0000000); // myr8a47 !! sollte 545nx4t ergeben --> calculateChainFromStartValue() ist falsch
-//        System.out.println("Ist myr8a47 in Endpoints-Liste enthalten?: "+endPoints.contains("myr8a47"));
-
-        List<String> listOfCalculatedResults = calculatePasswordfromStartValue("00000rs", zeichenSet, 7);
-        System.out.println("Gegebener Hashwert ist in Kette von Startwert: "+listOfCalculatedResults.contains(gegebenerHashwert));
-        String password = listOfCalculatedResults.get(listOfCalculatedResults.indexOf(gegebenerHashwert)-1);
-        System.out.println("Passwort von gegebenem Hashwert: "+password);
-        System.out.println("Gehashtes Passwort: "+getMD5(password));
-        System.out.println("Gegebener Hashwert: "+gegebenerHashwert);
 
 
     }
-    //Kette von Startwert
-    public static List<String> calculatePasswordfromStartValue(String firstPasswort,List<String> zeichenSet, int laengePW){
-        List <String> listOfCalculatedResults = new ArrayList<>();
+
+    //Kette von Startwert aus berechnen
+    public static List<String> calculatePasswordfromStartValue(String firstPasswort, List<String> zeichenSet,
+            int laengePW) {
+        List<String> listOfCalculatedResults = new ArrayList<>();
         String tempPassword = firstPasswort;
-        for(int i = 0; i<2000; i++){
+        for (int i = 0; i < 2000; i++) {
             listOfCalculatedResults.add(getMD5(tempPassword));
             listOfCalculatedResults.add(reduction(getDez(getMD5(tempPassword)), i, zeichenSet, laengePW));
             tempPassword = reduction(getDez(getMD5(tempPassword)), i, zeichenSet, laengePW);
         }
-        System.out.println("Länge der Liste: " + listOfCalculatedResults.size());
-        System.out.println("Letzer Wert in Liste: " + listOfCalculatedResults.get(listOfCalculatedResults.size()-1));
+        System.out.println("Länge der Kette von 00000rs aus: " + listOfCalculatedResults.size());
+        System.out.println("Letzer Wert in Kette: " + listOfCalculatedResults.get(listOfCalculatedResults.size() - 1));
 
         return listOfCalculatedResults;
     }
 
-
-
-
     // Kette von gefundenem StartValue aus berechnen
+
     public static List<String> calculateChainFromStartValue(String startValue, List<String> zeichenSet, int laengePW) {
         List<String> listOfHashesAndRed = new ArrayList<>();
         String hash = startValue;
@@ -225,6 +184,7 @@ public class rainbowtable {
             hash = getMD5(hash);
             listOfHashesAndRed.add(hash);
             reduced = reduction(getDez(hash), j, zeichenSet, laengePW);
+            hash=reduced;
             listOfHashesAndRed.add(reduced);
         }
         System.out.println("Länge der Liste: " + listOfHashesAndRed.size());
@@ -232,13 +192,14 @@ public class rainbowtable {
         return listOfHashesAndRed;
     }
 
+
     // Input: Hash, Aktion: (hashen)-toDez-reduzieren von Stufe 1999-- bis Endpoint gefunden
     public static String findEndPoint(String hash, List<String> zeichenSet, int laengePW, List<String> endPoints) {
 
         for (int i = 1999; i >= 0; i--) {
             String tempDecryptedHash = getReducedHash(hash, i, zeichenSet, laengePW);
             if (isReducedHashInEndPoints(tempDecryptedHash, endPoints)) {
-                System.out.println("Stufe von der aus Endpoint gefunden: "+i);
+                System.out.println("Stufe von der aus Endpoint gefunden: " + i);
                 return tempDecryptedHash;
             }
         }
