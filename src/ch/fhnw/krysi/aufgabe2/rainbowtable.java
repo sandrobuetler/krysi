@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.ToDoubleBiFunction;
 
 public class rainbowtable {
 
@@ -192,6 +191,23 @@ public class rainbowtable {
 
 
     }
+    //Kette von Startwert
+    public static List<String> calculateResultfromStartValue(String firstPasswort,List<String> zeichenSet, int laengePW){
+        List <String> listOfCalculatedResults = new ArrayList<>();
+        String tempPassword = firstPasswort;
+        for(int i = 0; i<2000; i++){
+            listOfCalculatedResults.add(getMD5(tempPassword));
+            listOfCalculatedResults.add(reduction(getDez(getMD5(tempPassword)), i, zeichenSet, laengePW));
+            tempPassword = reduction(getDez(getMD5(tempPassword)), i, zeichenSet, laengePW);
+        }
+        System.out.println("Länge der Liste: " + listOfCalculatedResults.size());
+        System.out.println("Letzer Wert in Liste: " + listOfCalculatedResults.get(listOfCalculatedResults.size()-1));
+
+        return listOfCalculatedResults;
+    }
+
+
+
 
     // Kette von gefundenem StartValue aus berechnen
     public static List<String> calculateChainFromStartValue(String startValue, List<String> zeichenSet, int laengePW) {
@@ -205,6 +221,8 @@ public class rainbowtable {
             reduced = reduction(getDez(hash), j, zeichenSet, laengePW);
             listOfHashesAndRed.add(reduced);
         }
+        System.out.println("Länge der Liste: " + listOfHashesAndRed.size());
+        System.out.println("Letzer Wert in Liste: " + listOfHashesAndRed.get(listOfHashesAndRed.size()-1));
         return listOfHashesAndRed;
     }
 
